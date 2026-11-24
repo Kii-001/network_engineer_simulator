@@ -1,0 +1,88 @@
+[
+  {
+    "id": 1,
+    "code": "CNT-101",
+    "title": "Certified Network Technician (CNT)",
+    "tier": "Associate",
+    "description": "Ujian sertifikasi dasar: Bangun jaringan LAN, konfigurasi addressing IPv4, subnet mask, dan default gateway. Buktikan koneksi 100% tanpa packet loss.",
+    "time_limit": 300,
+    "passing_score": 80,
+    "badge": "CERTIFIED NETWORK TECHNICIAN",
+    "reward_xp": 500,
+    "reward_coins": 300,
+    "criteria": {
+      "min_devices": {"router": 1, "switch": 1, "pc": 2},
+      "min_links": 3,
+      "links_active": true
+    }
+  },
+  {
+    "id": 2,
+    "code": "CRS-201",
+    "title": "Certified Routing & Switching Specialist",
+    "tier": "Professional",
+    "description": "Ujian sertifikasi switching & routing: Terapkan segmentasi VLAN (10 & 20), port trunking, dan inter-VLAN routing menggunakan Router-on-a-stick.",
+    "time_limit": 420,
+    "passing_score": 80,
+    "badge": "ROUTING & SWITCHING SPECIALIST",
+    "reward_xp": 800,
+    "reward_coins": 450,
+    "criteria": {
+      "min_devices": {"router": 1, "managed_switch": 1},
+      "vlans_created": [10, 20],
+      "trunk_configured": true
+    }
+  },
+  {
+    "id": 3,
+    "code": "CEA-301",
+    "title": "Certified Enterprise Infrastructure Architect",
+    "tier": "Professional",
+    "description": "Ujian infrastruktur enterprise: Bangun jaringan multi-router dengan dynamic routing OSPF Area 0, DHCP Server otomatis, dan DNS Server terpusat.",
+    "time_limit": 480,
+    "passing_score": 80,
+    "badge": "ENTERPRISE INFRASTRUCTURE ARCHITECT",
+    "reward_xp": 1000,
+    "reward_coins": 600,
+    "criteria": {
+      "min_devices": {"router": 2, "server": 1},
+      "ospf_routers": 2,
+      "dhcp_enabled": true
+    }
+  },
+  {
+    "id": 4,
+    "code": "CSS-401",
+    "title": "Certified Network Security Specialist",
+    "tier": "Senior",
+    "description": "Ujian keamanan jaringan tingkat lanjut: Amankan topologi perimeter dengan Firewall, konfigurasikan Extended ACL, dan aktifkan Switch Port Security.",
+    "time_limit": 450,
+    "passing_score": 80,
+    "badge": "NETWORK SECURITY SPECIALIST",
+    "reward_xp": 1200,
+    "reward_coins": 750,
+    "criteria": {
+      "min_devices": {"firewall": 1, "managed_switch": 1},
+      "acls_configured": 1,
+      "port_security_active": true
+    }
+  },
+  {
+    "id": 5,
+    "code": "GNA-501",
+    "title": "Grandmaster Network Architect (Capstone)",
+    "tier": "Master",
+    "description": "Ujian praktisi tingkat tertinggi: Rancang bangun arsitektur enterprise skala penuh mencakup Multi-Area OSPF, DMZ Firewall, Multi-VLAN Trunking, dan Wireless Infrastructure.",
+    "time_limit": 600,
+    "passing_score": 85,
+    "badge": "GRANDMASTER NETWORK ARCHITECT",
+    "reward_xp": 200,
+    "reward_coins": 1200,
+    "criteria": {
+      "min_devices": {"router": 2, "managed_switch": 2, "firewall": 1, "server": 1, "access_point": 1},
+      "ospf_routers": 2,
+      "vlans_created": [10, 20],
+      "dhcp_enabled": true
+    }
+  }
+]

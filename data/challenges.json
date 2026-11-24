@@ -1,0 +1,136 @@
+[
+  {
+    "id": 1,
+    "title": "Speed Subnetting Sprint",
+    "difficulty": "Medium",
+    "description": "Tantangan kecepatan! Bangun 3 subnet IPv4 terpisah (/24, /26, /28) dan hubungkan seluruh client ke router dalam waktu sesingkat mungkin.",
+    "time_limit": 120,
+    "budget": 500,
+    "gold_time": 60,
+    "silver_time": 90,
+    "bronze_time": 120,
+    "reward_xp": 300,
+    "reward_coins": 150,
+    "criteria": {
+      "min_devices": {"router": 1, "pc": 3},
+      "min_links": 3
+    }
+  },
+  {
+    "id": 2,
+    "title": "Minimalist SOHO Budget",
+    "difficulty": "Hard",
+    "description": "Bangun jaringan SOHO lengkap (Modem + Router + Switch + PC + Laptop) dengan batasan anggaran super ketat maksimal $260!",
+    "time_limit": 180,
+    "budget": 260,
+    "gold_time": 90,
+    "silver_time": 140,
+    "bronze_time": 180,
+    "reward_xp": 350,
+    "reward_coins": 200,
+    "criteria": {
+      "min_devices": {"modem": 1, "router": 1, "switch": 1, "pc": 1}
+    }
+  },
+  {
+    "id": 3,
+    "title": "High-Speed Fiber Ring",
+    "difficulty": "Hard",
+    "description": "Hubungkan 3 Router dalam topologi redundan berkecepatan tinggi menggunakan kabel Fiber Optic dan konfigurasi static routing.",
+    "time_limit": 150,
+    "budget": 800,
+    "gold_time": 80,
+    "silver_time": 120,
+    "bronze_time": 150,
+    "reward_xp": 400,
+    "reward_coins": 220,
+    "criteria": {
+      "min_devices": {"router": 3},
+      "min_links": 3
+    }
+  },
+  {
+    "id": 4,
+    "title": "Rapid OSPF Convergence",
+    "difficulty": "Expert",
+    "description": "Aktifkan OSPF Area 0 pada 3 Router kantor dalam waktu kurang dari 90 detik dan pastikan seluruh routing table terkonvergensi.",
+    "time_limit": 120,
+    "budget": 750,
+    "gold_time": 65,
+    "silver_time": 90,
+    "bronze_time": 120,
+    "reward_xp": 450,
+    "reward_coins": 250,
+    "criteria": {
+      "ospf_routers": 3
+    }
+  },
+  {
+    "id": 5,
+    "title": "Zero-Loss Multi-VLAN Trunk",
+    "difficulty": "Hard",
+    "description": "Konfigurasikan 3 VLAN (10, 20, 30) pada Managed Switch dengan port Trunk ke Router (Router-on-a-stick) di bawah tekanan waktu.",
+    "time_limit": 160,
+    "budget": 600,
+    "gold_time": 90,
+    "silver_time": 130,
+    "bronze_time": 160,
+    "reward_xp": 400,
+    "reward_coins": 220,
+    "criteria": {
+      "trunk_configured": true,
+      "vlans_created": [10, 20, 30]
+    }
+  },
+  {
+    "id": 6,
+    "title": "DMZ Perimeter Hardening",
+    "difficulty": "Expert",
+    "description": "Pasang Firewall dan terapkan Extended Access List untuk membatasi akses server publik hanya pada port HTTP dan ICMP.",
+    "time_limit": 140,
+    "budget": 700,
+    "gold_time": 80,
+    "silver_time": 110,
+    "bronze_time": 140,
+    "reward_xp": 500,
+    "reward_coins": 280,
+    "criteria": {
+      "min_devices": {"firewall": 1, "server": 1},
+      "acls_configured": 1
+    }
+  },
+  {
+    "id": 7,
+    "title": "Wireless Roaming Deployment",
+    "difficulty": "Medium",
+    "description": "Sebarkan 3 Access Point dengan SSID seragam dan alokasi DHCP otomatis untuk meng-cover seluruh area kampus.",
+    "time_limit": 150,
+    "budget": 500,
+    "gold_time": 75,
+    "silver_time": 110,
+    "bronze_time": 150,
+    "reward_xp": 350,
+    "reward_coins": 180,
+    "criteria": {
+      "min_devices": {"access_point": 3}
+    }
+  },
+  {
+    "id": 8,
+    "title": "Grandmaster Speedrun Challenge",
+    "difficulty": "Master",
+    "description": "Tantangan pamungkas: Bangun topologi enterprise terintegrasi (Router OSPF, Switch VLAN, DHCP & DNS Server) dalam waktu kurang dari 240 detik!",
+    "time_limit": 240,
+    "budget": 1500,
+    "gold_time": 140,
+    "silver_time": 190,
+    "bronze_time": 240,
+    "reward_xp": 800,
+    "reward_coins": 500,
+    "criteria": {
+      "min_devices": {"router": 2, "managed_switch": 1, "server": 1},
+      "ospf_routers": 2,
+      "dhcp_enabled": true
+    }
+  }
+]

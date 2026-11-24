@@ -1,0 +1,265 @@
+{
+  "router": {
+    "label": "Router",
+    "model": "NES-R1000",
+    "name_prefix": "Router",
+    "cost": 150,
+    "category": "Network",
+    "description": "Menghubungkan jaringan berbeda (layer 3).",
+    "ports": [
+      {
+        "name": "GigabitEthernet0/{i}",
+        "count": 3,
+        "kind": "RJ45"
+      },
+      {
+        "name": "GigabitEthernet1/{i}",
+        "count": 1,
+        "kind": "FIBER"
+      },
+      {
+        "name": "Console",
+        "count": 1,
+        "kind": "CONSOLE"
+      }
+    ],
+    "mdi": "MDI",
+    "ip_role": "router"
+  },
+  "switch": {
+    "label": "Switch",
+    "model": "NES-S800",
+    "name_prefix": "Switch",
+    "cost": 40,
+    "category": "Network",
+    "description": "Switch unmanaged 8 port (layer 2).",
+    "ports": [
+      {
+        "name": "FastEthernet0/{i}",
+        "count": 8,
+        "kind": "RJ45",
+        "start": 1
+      }
+    ],
+    "mdi": "MDIX",
+    "ip_role": "none"
+  },
+  "managed_switch": {
+    "label": "Managed Switch",
+    "model": "NES-MS2400",
+    "name_prefix": "MSwitch",
+    "cost": 120,
+    "category": "Network",
+    "description": "Switch managed: VLAN, trunk, port security.",
+    "ports": [
+      {
+        "name": "GigabitEthernet0/{i}",
+        "count": 12,
+        "kind": "RJ45",
+        "start": 1
+      },
+      {
+        "name": "GigabitEthernet1/{i}",
+        "count": 2,
+        "kind": "FIBER",
+        "start": 1
+      },
+      {
+        "name": "Console",
+        "count": 1,
+        "kind": "CONSOLE"
+      }
+    ],
+    "mdi": "MDIX",
+    "ip_role": "none"
+  },
+  "hub": {
+    "label": "Hub",
+    "model": "NES-H600",
+    "name_prefix": "Hub",
+    "cost": 15,
+    "category": "Network",
+    "description": "Hub 6 port; mengulang sinyal ke semua port.",
+    "ports": [
+      {
+        "name": "Port{i}",
+        "count": 6,
+        "kind": "RJ45",
+        "start": 1
+      }
+    ],
+    "mdi": "MDIX",
+    "ip_role": "none"
+  },
+  "pc": {
+    "label": "PC / Client",
+    "model": "NES-PC100",
+    "name_prefix": "PC",
+    "cost": 35,
+    "category": "End Device",
+    "description": "Komputer desktop client.",
+    "ports": [
+      {
+        "name": "FastEthernet0",
+        "count": 1,
+        "kind": "RJ45"
+      },
+      {
+        "name": "RS232",
+        "count": 1,
+        "kind": "RS232"
+      }
+    ],
+    "mdi": "MDI",
+    "ip_role": "host"
+  },
+  "laptop": {
+    "label": "Laptop",
+    "model": "NES-LT200",
+    "name_prefix": "Laptop",
+    "cost": 45,
+    "category": "End Device",
+    "description": "Laptop dengan LAN dan WiFi.",
+    "ports": [
+      {
+        "name": "FastEthernet0",
+        "count": 1,
+        "kind": "RJ45"
+      },
+      {
+        "name": "Wireless0",
+        "count": 1,
+        "kind": "WIRELESS"
+      },
+      {
+        "name": "RS232",
+        "count": 1,
+        "kind": "RS232"
+      }
+    ],
+    "mdi": "MDI",
+    "ip_role": "host"
+  },
+  "server": {
+    "label": "Server",
+    "model": "NES-SRV900",
+    "name_prefix": "Server",
+    "cost": 200,
+    "category": "End Device",
+    "description": "Server untuk DHCP, DNS, web, dan lainnya.",
+    "ports": [
+      {
+        "name": "GigabitEthernet0/{i}",
+        "count": 2,
+        "kind": "RJ45"
+      },
+      {
+        "name": "RS232",
+        "count": 1,
+        "kind": "RS232"
+      }
+    ],
+    "mdi": "MDI",
+    "ip_role": "host"
+  },
+  "access_point": {
+    "label": "Access Point",
+    "model": "NES-AP300",
+    "name_prefix": "AP",
+    "cost": 60,
+    "category": "Wireless",
+    "description": "Wireless Access Point (SSID, WPA2/WPA3).",
+    "ports": [
+      {
+        "name": "GigabitEthernet0",
+        "count": 1,
+        "kind": "RJ45"
+      },
+      {
+        "name": "Wireless0",
+        "count": 1,
+        "kind": "WIRELESS"
+      }
+    ],
+    "mdi": "MDI",
+    "ip_role": "host"
+  },
+  "firewall": {
+    "label": "Firewall",
+    "model": "NES-FW500",
+    "name_prefix": "Firewall",
+    "cost": 180,
+    "category": "Security",
+    "description": "Filter lalu lintas dengan aturan dan ACL.",
+    "ports": [
+      {
+        "name": "GigabitEthernet0/{i}",
+        "count": 3,
+        "kind": "RJ45"
+      },
+      {
+        "name": "Console",
+        "count": 1,
+        "kind": "CONSOLE"
+      }
+    ],
+    "mdi": "MDI",
+    "ip_role": "router"
+  },
+  "printer": {
+    "label": "Printer",
+    "model": "NES-PR50",
+    "name_prefix": "Printer",
+    "cost": 30,
+    "category": "End Device",
+    "description": "Printer jaringan.",
+    "ports": [
+      {
+        "name": "FastEthernet0",
+        "count": 1,
+        "kind": "RJ45"
+      }
+    ],
+    "mdi": "MDI",
+    "ip_role": "host"
+  },
+  "modem": {
+    "label": "Modem",
+    "model": "NES-MD10",
+    "name_prefix": "Modem",
+    "cost": 25,
+    "category": "Network",
+    "description": "Modem penghubung ke ISP.",
+    "ports": [
+      {
+        "name": "Ethernet0",
+        "count": 1,
+        "kind": "RJ45"
+      },
+      {
+        "name": "WAN0",
+        "count": 1,
+        "kind": "RJ45"
+      }
+    ],
+    "mdi": "MDIX",
+    "ip_role": "none"
+  },
+  "internet_cloud": {
+    "label": "Internet Cloud",
+    "model": "ISP-CLOUD",
+    "name_prefix": "Internet",
+    "cost": 0,
+    "category": "External",
+    "description": "Representasi internet / jaringan ISP.",
+    "ports": [
+      {
+        "name": "Ethernet{i}",
+        "count": 2,
+        "kind": "RJ45"
+      }
+    ],
+    "mdi": "MDI",
+    "ip_role": "none"
+  }
+}

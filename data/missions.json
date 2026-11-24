@@ -1,0 +1,555 @@
+[
+  {
+    "id": 1,
+    "title": "Basic LAN",
+    "category": "Fundamentals",
+    "description": "Klien membutuhkan koneksi lokal antara dua komputer kantor (PC1 dan PC2) menggunakan sebuah Switch. Hubungkan kedua komputer ke switch dengan kabel yang sesuai.",
+    "budget": 200,
+    "time_limit": 180,
+    "xp_reward": 100,
+    "coin_reward": 50,
+    "objectives": [
+      "Pasang 1 Switch dan 2 PC di workspace",
+      "Hubungkan PC1 dan PC2 ke Switch menggunakan kabel Straight-Through",
+      "Pastikan kedua link port dalam kondisi UP (LED hijau)"
+    ],
+    "success_criteria": {
+      "min_devices": {"pc": 2, "switch": 1},
+      "min_links": 2,
+      "links_active": true
+    }
+  },
+  {
+    "id": 2,
+    "title": "IP Address Configuration",
+    "category": "IPv4 & Subnetting",
+    "description": "Konfigurasikan alamat IP statis pada PC1 (192.168.1.10/24) dan PC2 (192.168.1.20/24). Uji konektivitas dengan melakukan ping.",
+    "budget": 200,
+    "time_limit": 240,
+    "xp_reward": 150,
+    "coin_reward": 75,
+    "objectives": [
+      "Atur IP PC1: 192.168.1.10 netmask 255.255.255.0",
+      "Atur IP PC2: 192.168.1.20 netmask 255.255.255.0",
+      "Pastikan ping antara PC1 dan PC2 berhasil"
+    ],
+    "success_criteria": {
+      "ip_assigned": {"PC1": "192.168.1.10/24", "PC2": "192.168.1.20/24"},
+      "test_ping": [["PC1", "192.168.1.20"]]
+    }
+  },
+  {
+    "id": 3,
+    "title": "Router Configuration",
+    "category": "Routing Basics",
+    "description": "Hubungkan dua departemen yang berada pada subnet berbeda (192.168.1.0/24 dan 192.168.2.0/24) menggunakan sebuah Router.",
+    "budget": 400,
+    "time_limit": 300,
+    "xp_reward": 200,
+    "coin_reward": 100,
+    "objectives": [
+      "Pasang 1 Router dan 2 Switch",
+      "Konfigurasi IP interface Router untuk Subnet 1 (192.168.1.1) dan Subnet 2 (192.168.2.1)",
+      "Set default gateway pada PC departemen ke IP interface router",
+      "Uji koneksi antar subnet dengan ping"
+    ],
+    "success_criteria": {
+      "min_devices": {"router": 1, "pc": 2},
+      "gateway_configured": true
+    }
+  },
+  {
+    "id": 4,
+    "title": "DHCP Server Setup",
+    "category": "Services",
+    "description": "Konfigurasikan DHCP Server untuk memberikan alamat IP otomatis kepada PC client pada rentang 192.168.10.0/24.",
+    "budget": 350,
+    "time_limit": 240,
+    "xp_reward": 250,
+    "coin_reward": 120,
+    "objectives": [
+      "Pasang 1 Server dan 1 Switch",
+      "Konfigurasi DHCP Pool pada Server (Network: 192.168.10.0/24, Gateway: 192.168.10.1)",
+      "Aktifkan DHCP Client pada PC kantor",
+      "Pastikan PC memperoleh IP otomatis"
+    ],
+    "success_criteria": {
+      "dhcp_enabled": true,
+      "clients_leased": 1
+    }
+  },
+  {
+    "id": 5,
+    "title": "DNS Server Resolution",
+    "category": "Services",
+    "description": "Bangun DNS Server internal dan tambahkan A Record untuk domain 'intranet.local' yang mengarah ke server file.",
+    "budget": 350,
+    "time_limit": 240,
+    "xp_reward": 250,
+    "coin_reward": 120,
+    "objectives": [
+      "Konfigurasi DNS Server dan tambahkan A Record 'intranet.local'",
+      "Arahkan DNS Server pada client",
+      "Uji resolusi nama dengan ping atau nslookup intranet.local"
+    ],
+    "success_criteria": {
+      "dns_records": {"intranet.local": "A"}
+    }
+  },
+  {
+    "id": 6,
+    "title": "VLAN Segmentation",
+    "category": "Switching",
+    "description": "Pisahkan jaringan departemen Finance (VLAN 10) dan HR (VLAN 20) pada Managed Switch.",
+    "budget": 300,
+    "time_limit": 240,
+    "xp_reward": 300,
+    "coin_reward": 150,
+    "objectives": [
+      "Buat VLAN 10 dan VLAN 20 pada Managed Switch",
+      "Tetapkan port PC Finance ke access VLAN 10",
+      "Tetapkan port PC HR ke access VLAN 20"
+    ],
+    "success_criteria": {
+      "vlans_created": [10, 20]
+    }
+  },
+  {
+    "id": 7,
+    "title": "Inter-VLAN Routing (Router-on-a-Stick)",
+    "category": "Switching & Routing",
+    "description": "Gunakan Router dengan subinterface 802.1Q dan port Trunk pada Managed Switch untuk menghubungkan VLAN 10 dan VLAN 20.",
+    "budget": 500,
+    "time_limit": 360,
+    "xp_reward": 350,
+    "coin_reward": 180,
+    "objectives": [
+      "Konfigurasi Trunk link antara Switch dan Router",
+      "Buat subinterface Gi0/0.10 dan Gi0/0.20 pada Router dengan encapsulation dot1Q",
+      "Uji ping antar VLAN melalui router"
+    ],
+    "success_criteria": {
+      "trunk_configured": true,
+      "subinterfaces_active": 2
+    }
+  },
+  {
+    "id": 8,
+    "title": "Static Routing Multi-Hop",
+    "category": "Routing",
+    "description": "Hubungkan tiga router kantor cabang (R1, R2, R3) menggunakan Static Route.",
+    "budget": 600,
+    "time_limit": 360,
+    "xp_reward": 400,
+    "coin_reward": 200,
+    "objectives": [
+      "Konfigurasi IP antar interface serial / gigabit pada ketiga router",
+      "Tambahkan 'ip route' ke subnet tujuan via next-hop yang tepat",
+      "Uji koneksi end-to-end dari PC cabang 1 ke PC cabang 3"
+    ],
+    "success_criteria": {
+      "static_routes_min": 4
+    }
+  },
+  {
+    "id": 9,
+    "title": "Dynamic Routing RIP v2",
+    "category": "Dynamic Routing",
+    "description": "Aktifkan protokol RIP v2 pada seluruh router agar tabel routing terkonvergensi secara otomatis.",
+    "budget": 600,
+    "time_limit": 300,
+    "xp_reward": 400,
+    "coin_reward": 200,
+    "objectives": [
+      "Aktifkan 'router rip' dan 'version 2'",
+      "Daftarkan network yang terhubung pada perintah 'network'",
+      "Verifikasi rute dengan 'show ip route' (kode R)"
+    ],
+    "success_criteria": {
+      "rip_routers": 2
+    }
+  },
+  {
+    "id": 10,
+    "title": "Dynamic Routing OSPF Single Area",
+    "category": "Dynamic Routing",
+    "description": "Konfigurasi OSPF Area 0 pada jaringan enterprise multi-router.",
+    "budget": 700,
+    "time_limit": 360,
+    "xp_reward": 450,
+    "coin_reward": 220,
+    "objectives": [
+      "Aktifkan 'router ospf 1'",
+      "Daftarkan network dengan wildcard mask ke area 0",
+      "Pastikan neighbor adjacency terbentuk dan rute berkode O muncul"
+    ],
+    "success_criteria": {
+      "ospf_routers": 2
+    }
+  },
+  {
+    "id": 11,
+    "title": "Standard Access Control List",
+    "category": "Security",
+    "description": "Terapkan Standard ACL pada Router untuk memblokir host tertentu agar tidak dapat mengakses server akuntansi.",
+    "budget": 500,
+    "time_limit": 300,
+    "xp_reward": 450,
+    "coin_reward": 220,
+    "objectives": [
+      "Buat access-list nomor 1-99 untuk 'deny' IP sumber host yang dilarang",
+      "Tambahkan aturan 'permit any' di baris terakhir",
+      "Terapkan ACL pada interface yang menuju server"
+    ],
+    "success_criteria": {
+      "acls_configured": 1
+    }
+  },
+  {
+    "id": 12,
+    "title": "Extended ACL & Firewall Protection",
+    "category": "Security",
+    "description": "Pasang Firewall dan konfigurasikan Extended ACL untuk mengizinkan web (HTTP) dan ping, namun memblokir lalu lintas lainnya.",
+    "budget": 600,
+    "time_limit": 360,
+    "xp_reward": 500,
+    "coin_reward": 250,
+    "objectives": [
+      "Pasang Firewall antara jaringan internal dan server publik",
+      "Atur Extended ACL untuk protocol HTTP dan ICMP",
+      "Uji bahwa akses terlarang dibatalkan (dropped) oleh Firewall"
+    ],
+    "success_criteria": {
+      "firewall_active": true
+    }
+  },
+  {
+    "id": 13,
+    "title": "Switchport Port Security",
+    "category": "Security",
+    "description": "Amankan akses fisik switch di lobby kantor dengan port security (maksimal 1 MAC address, violation shutdown).",
+    "budget": 300,
+    "time_limit": 240,
+    "xp_reward": 400,
+    "coin_reward": 200,
+    "objectives": [
+      "Aktifkan 'switchport port-security' pada port switch",
+      "Atur 'switchport port-security maximum 1'",
+      "Atur violation mode ke shutdown"
+    ],
+    "success_criteria": {
+      "port_security_active": true
+    }
+  },
+  {
+    "id": 14,
+    "title": "Wireless LAN Deployment",
+    "category": "Wireless",
+    "description": "Pasang Wireless Access Point (WAP) dengan SSID 'Kantor_Utama' dan enkripsi WPA2-PSK.",
+    "budget": 350,
+    "time_limit": 240,
+    "xp_reward": 350,
+    "coin_reward": 180,
+    "objectives": [
+      "Hubungkan AP ke Switch via kabel straight-through",
+      "Konfigurasi SSID dan Password WPA2",
+      "Hubungkan Laptop ke AP secara nirkabel"
+    ],
+    "success_criteria": {
+      "wireless_associated": true
+    }
+  },
+  {
+    "id": 15,
+    "title": "Small Office Home Office (SOHO)",
+    "category": "Integration",
+    "description": "Rancang topologi lengkap SOHO: Modem ISP, Router gateway, Switch, Access Point, dan 3 perangkat end-user.",
+    "budget": 800,
+    "time_limit": 420,
+    "xp_reward": 550,
+    "coin_reward": 280,
+    "objectives": [
+      "Hubungkan Modem ke Router WAN port",
+      "Bangun jaringan internal LAN dan WiFi dengan DHCP",
+      "Pastikan seluruh PC dan Laptop dapat menjangkau gateway"
+    ],
+    "success_criteria": {
+      "min_devices": {"modem": 1, "router": 1, "switch": 1, "access_point": 1}
+    }
+  },
+  {
+    "id": 16,
+    "title": "School Lab Multi-VLAN",
+    "category": "Integration",
+    "description": "Bangun infrastruktur laboratorium sekolah dengan 2 ruangan (Lab A VLAN 100, Lab B VLAN 200) dan Server Ujian.",
+    "budget": 900,
+    "time_limit": 480,
+    "xp_reward": 600,
+    "coin_reward": 300,
+    "objectives": [
+      "Konfigurasi 2 VLAN pada Managed Switch",
+      "Gunakan Router untuk menghubungkan kedua lab ke Server Ujian",
+      "Uji ping dari kedua lab ke Server Ujian"
+    ],
+    "success_criteria": {
+      "vlans_created": [100, 200]
+    }
+  },
+  {
+    "id": 17,
+    "title": "Enterprise Branch Office WAN",
+    "category": "Enterprise",
+    "description": "Hubungkan Kantor Pusat (HQ) dengan Kantor Cabang (Branch) melalui router WAN.",
+    "budget": 1000,
+    "time_limit": 480,
+    "xp_reward": 650,
+    "coin_reward": 320,
+    "objectives": [
+      "Konfigurasi link antar router HQ dan Branch",
+      "Gunakan OSPF untuk mengiklankan subnet lokal masing-masing kantor",
+      "Verifikasi konektivitas antarcabang"
+    ],
+    "success_criteria": {
+      "ospf_routers": 2
+    }
+  },
+  {
+    "id": 18,
+    "title": "DMZ & Server Farm",
+    "category": "Security & Architecture",
+    "description": "Bangun arsitektur 3-legged firewall: Jaringan Publik (Outside), DMZ Server Web, dan Jaringan Internal LAN.",
+    "budget": 1100,
+    "time_limit": 500,
+    "xp_reward": 700,
+    "coin_reward": 350,
+    "objectives": [
+      "Konfigurasi Firewall dengan 3 interface: Inside, Outside, DMZ",
+      "Atur izin akses dari luar hanya ke DMZ Server",
+      "Cegah Outside mengakses Internal LAN secara langsung"
+    ],
+    "success_criteria": {
+      "firewall_active": true
+    }
+  },
+  {
+    "id": 19,
+    "title": "Redundant Links & Multi-VLAN Trunking",
+    "category": "Switching",
+    "description": "Bangun jalur trunking antar switch managed untuk mengalirkan traffic multi-VLAN.",
+    "budget": 800,
+    "time_limit": 420,
+    "xp_reward": 600,
+    "coin_reward": 300,
+    "objectives": [
+      "Hubungkan dua Managed Switch dengan kabel Crossover atau Fiber",
+      "Atur kedua port penghubung sebagai 802.1Q Trunk",
+      "Pastikan VLAN 10 dan VLAN 20 dapat saling berkomunikasi antar-switch"
+    ],
+    "success_criteria": {
+      "trunk_configured": true
+    }
+  },
+  {
+    "id": 20,
+    "title": "Inter-Building Fiber Backbone",
+    "category": "Infrastructure",
+    "description": "Hubungkan dua gedung yang berjarak jauh menggunakan kabel Fiber Optic berkecepatan tinggi antar router.",
+    "budget": 1000,
+    "time_limit": 400,
+    "xp_reward": 650,
+    "coin_reward": 320,
+    "objectives": [
+      "Gunakan port Fiber pada Router Gedung A dan Gedung B",
+      "Pasang kabel Fiber Optic",
+      "Konfigurasi IP point-to-point /30 pada link fiber dan verifikasi link UP"
+    ],
+    "success_criteria": {
+      "fiber_links": 1
+    }
+  },
+  {
+    "id": 21,
+    "title": "Multi-Area OSPF Architecture",
+    "category": "Dynamic Routing",
+    "description": "Rancang jaringan OSPF dengan Area 0 (Backbone) dan Area 1.",
+    "budget": 1200,
+    "time_limit": 540,
+    "xp_reward": 750,
+    "coin_reward": 380,
+    "objectives": [
+      "Konfigurasi Area Border Router (ABR)",
+      "Pastikan rute antar area terdistribusi dengan baik"
+    ],
+    "success_criteria": {
+      "ospf_routers": 3
+    }
+  },
+  {
+    "id": 22,
+    "title": "High-Density Wireless Campus",
+    "category": "Wireless",
+    "description": "Pasang beberapa Access Point untuk mencakup area kampus dengan SSID yang sama dan roaming seamless.",
+    "budget": 900,
+    "time_limit": 420,
+    "xp_reward": 650,
+    "coin_reward": 320,
+    "objectives": [
+      "Pasang minimal 2 Access Point dengan SSID seragam",
+      "Pastikan distribusi DHCP mencukupi seluruh client wireless"
+    ],
+    "success_criteria": {
+      "min_devices": {"access_point": 2}
+    }
+  },
+  {
+    "id": 23,
+    "title": "Troubleshooting: Broken DHCP & Subnet",
+    "category": "Troubleshooting",
+    "description": "Client mengeluh tidak bisa mengakses internet (IP 169.254.x.x APIPA). Temukan penyebab kegagalan DHCP dan perbaiki.",
+    "budget": 500,
+    "time_limit": 300,
+    "xp_reward": 500,
+    "coin_reward": 250,
+    "objectives": [
+      "Analisis port switch dan konfigurasi DHCP Server",
+      "Perbaiki kesalahan subnet atau port shutdown",
+      "Pastikan client berhasil mendapatkan IP lease"
+    ],
+    "success_criteria": {
+      "dhcp_enabled": true,
+      "clients_leased": 1
+    }
+  },
+  {
+    "id": 24,
+    "title": "Troubleshooting: Routing Loop & Wrong Next-Hop",
+    "category": "Troubleshooting",
+    "description": "Paket data mengalami drop karena kesalahan entri next-hop pada tabel routing statis. Perbaiki rute yang salah.",
+    "budget": 600,
+    "time_limit": 360,
+    "xp_reward": 550,
+    "coin_reward": 280,
+    "objectives": [
+      "Periksa tabel routing dengan 'show ip route'",
+      "Hapus rute statis yang salah dan masukkan next-hop yang benar",
+      "Uji ping hingga berhasil"
+    ],
+    "success_criteria": {
+      "static_routes_min": 2
+    }
+  },
+  {
+    "id": 25,
+    "title": "Troubleshooting: VLAN Mismatch & Trunk Failure",
+    "category": "Troubleshooting",
+    "description": "PC Finance tidak dapat menghubungi server Finance karena kesalahan mode port switch. Perbaiki konfigurasi port.",
+    "budget": 400,
+    "time_limit": 300,
+    "xp_reward": 500,
+    "coin_reward": 250,
+    "objectives": [
+      "Identifikasi port access vs trunk yang salah konfigurasi",
+      "Perbaiki assignment VLAN pada interface switch",
+      "Verifikasi konektivitas Finance"
+    ],
+    "success_criteria": {
+      "trunk_configured": true
+    }
+  },
+  {
+    "id": 26,
+    "title": "Troubleshooting: ACL Blocking Traffic",
+    "category": "Troubleshooting",
+    "description": "Pengguna melaporkan tidak bisa browsing web ke server internal akibat aturan ACL yang salah urutan atau salah port. Perbaiki ACL.",
+    "budget": 500,
+    "time_limit": 360,
+    "xp_reward": 600,
+    "coin_reward": 300,
+    "objectives": [
+      "Periksa daftar ACL pada Firewall / Router",
+      "Izinkan port HTTP (80) dan ICMP",
+      "Uji koneksi ping dan paket web"
+    ],
+    "success_criteria": {
+      "acls_configured": 1
+    }
+  },
+  {
+    "id": 27,
+    "title": "Enterprise ISP Connection",
+    "category": "Enterprise",
+    "description": "Hubungkan jaringan enterprise ke Internet Cloud melalui Modem ISP dan Gateway Router.",
+    "budget": 1200,
+    "time_limit": 480,
+    "xp_reward": 700,
+    "coin_reward": 350,
+    "objectives": [
+      "Hubungkan Gateway Router ke Internet Cloud",
+      "Tambahkan Default Route (0.0.0.0/0) menuju IP ISP",
+      "Uji ping dari client internal ke IP Internet Cloud"
+    ],
+    "success_criteria": {
+      "min_devices": {"internet_cloud": 1, "router": 1}
+    }
+  },
+  {
+    "id": 28,
+    "title": "Datacenter Core-Distribution Architecture",
+    "category": "Enterprise",
+    "description": "Bangun topologi hierarkis datacenter: Core Switch/Router, Distribution Layer, dan Access Layer.",
+    "budget": 1600,
+    "time_limit": 600,
+    "xp_reward": 850,
+    "coin_reward": 420,
+    "objectives": [
+      "Bangun arsitektur 3 lapis (Core, Distribution, Access)",
+      "Konfigurasi link trunking dan inter-VLAN routing",
+      "Verifikasi seluruh server datacenter dapat diakses dari workstation"
+    ],
+    "success_criteria": {
+      "min_devices": {"router": 2, "managed_switch": 2}
+    }
+  },
+  {
+    "id": 29,
+    "title": "Comprehensive Security Hardening",
+    "category": "Security Audit",
+    "description": "Lakukan audit dan hardening keamanan pada jaringan perusahaan: aktifkan port security, terapkan firewall DMZ, dan batasi akses manajemen.",
+    "budget": 1400,
+    "time_limit": 540,
+    "xp_reward": 900,
+    "coin_reward": 450,
+    "objectives": [
+      "Audit keamanan mencapai skor minimal 85%",
+      "Aktifkan port-security pada seluruh port switch access",
+      "Terapkan ACL protektif pada router perimeter"
+    ],
+    "success_criteria": {
+      "port_security_active": true,
+      "acls_configured": 1
+    }
+  },
+  {
+    "id": 30,
+    "title": "Grandmaster Network Engineer Capstone",
+    "category": "Capstone Exam",
+    "description": "Ujian akhir sertifikasi: Bangun infrastruktur jaringan skala besar mencakup Multi-Router OSPF, Multi-VLAN Trunking, DHCP & DNS Server, Firewall DMZ, dan Wireless Campus. Semua layanan harus online dan dapat diakses.",
+    "budget": 2500,
+    "time_limit": 900,
+    "xp_reward": 1500,
+    "coin_reward": 800,
+    "objectives": [
+      "Bangun topologi lengkap sesuai spesifikasi capstone",
+      "Konfigurasi OSPF pada seluruh router",
+      "Konfigurasi DHCP, DNS, dan VLAN segmentation",
+      "Terapkan proteksi Firewall pada DMZ",
+      "Verifikasi konektivitas 100% end-to-end tanpa packet loss"
+    ],
+    "success_criteria": {
+      "min_devices": {"router": 2, "managed_switch": 2, "server": 1, "access_point": 1, "firewall": 1},
+      "ospf_routers": 2,
+      "vlans_created": [10, 20],
+      "dhcp_enabled": true
+    }
+  }
+]

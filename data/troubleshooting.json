@@ -1,0 +1,164 @@
+[
+  {
+    "id": 1,
+    "ticket_no": "INC-101",
+    "client": "Departemen Keuangan (Finance)",
+    "severity": "CRITICAL",
+    "title": "Client Finance Mendapatkan IP APIPA 169.254.x.x (DHCP Gagal)",
+    "symptom": "Pengguna di bagian Finance mengeluh tidak bisa mengakses server akuntansi. Pada status jaringan PC muncul 'No Internet Access' dan IP address 169.254.12.33.",
+    "technical_clue": "Periksa port switch atau konfigurasi DHCP Server pada Server1. Kemungkinan port switch yang mengarah ke server dalam keadaan shutdown atau subnet pool tidak sesuai.",
+    "initial_topology": {
+      "version": 3,
+      "devices": [
+        {"id": 1, "type": "server", "name": "DHCP_SRV", "x": 200, "y": 200, "rotation": 0, "config": {"ports": {"GigabitEthernet0/0": ["192.168.1.2", "/24"]}}},
+        {"id": 2, "type": "switch", "name": "SW_Finance", "x": 400, "y": 200, "rotation": 0},
+        {"id": 3, "type": "pc", "name": "PC_Finance1", "x": 600, "y": 150, "rotation": 0},
+        {"id": 4, "type": "pc", "name": "PC_Finance2", "x": 600, "y": 250, "rotation": 0}
+      ],
+      "links": [
+        {"id": 1, "cable": "straight", "a": [1, "GigabitEthernet0/0"], "b": [2, "FastEthernet0/1"]},
+        {"id": 2, "cable": "straight", "a": [3, "FastEthernet0"], "b": [2, "FastEthernet0/2"]},
+        {"id": 3, "cable": "straight", "a": [4, "FastEthernet0"], "b": [2, "FastEthernet0/3"]}
+      ]
+    },
+    "fault_type": "dhcp_server_off",
+    "criteria": {
+      "dhcp_enabled": true,
+      "min_links": 3
+    }
+  },
+  {
+    "id": 2,
+    "ticket_no": "INC-102",
+    "client": "Kantor Cabang Surabaya",
+    "severity": "HIGH",
+    "title": "Routing Loop & Next-Hop Salah pada WAN Router",
+    "symptom": "Ping dari Kantor Cabang ke Kantor Pusat (HQ) selalu timeout dengan pesan 'TTL expired in transit'. Paket data berputar-putar di jalur router.",
+    "technical_clue": "Buka terminal Router R1 dan R2 dengan perintah 'show ip route'. Periksa rute statis yang mengarah ke network seberang, pastikan next-hop IP tidak saling menunjuk (routing loop).",
+    "initial_topology": {
+      "version": 3,
+      "devices": [
+        {"id": 1, "type": "router", "name": "R1_HQ", "x": 250, "y": 200, "rotation": 0, "config": {"ports": {"GigabitEthernet0/0": ["10.0.0.1", "/30"], "GigabitEthernet0/1": ["192.168.1.1", "/24"]}}},
+        {"id": 2, "type": "router", "name": "R2_Branch", "x": 550, "y": 200, "rotation": 0, "config": {"ports": {"GigabitEthernet0/0": ["10.0.0.2", "/30"], "GigabitEthernet0/1": ["192.168.2.1", "/24"]}}},
+        {"id": 3, "type": "pc", "name": "PC_HQ", "x": 100, "y": 200, "rotation": 0, "config": {"ports": {"FastEthernet0": ["192.168.1.10", "/24"]}, "gateway": "192.168.1.1"}},
+        {"id": 4, "type": "pc", "name": "PC_Branch", "x": 700, "y": 200, "rotation": 0, "config": {"ports": {"FastEthernet0": ["192.168.2.10", "/24"]}, "gateway": "192.168.2.1"}}
+      ],
+      "links": [
+        {"id": 1, "cable": "crossover", "a": [1, "GigabitEthernet0/0"], "b": [2, "GigabitEthernet0/0"]},
+        {"id": 2, "cable": "straight", "a": [3, "FastEthernet0"], "b": [1, "GigabitEthernet0/1"]},
+        {"id": 3, "cable": "straight", "a": [4, "FastEthernet0"], "b": [2, "GigabitEthernet0/1"]}
+      ]
+    },
+    "fault_type": "routing_loop",
+    "criteria": {
+      "static_routes_min": 2,
+      "links_active": true
+    }
+  },
+  {
+    "id": 3,
+    "ticket_no": "INC-103",
+    "client": "Divisi SDM / HR",
+    "severity": "HIGH",
+    "title": "VLAN Mismatch & Trunk Link Terputus Antar Switch",
+    "symptom": "Karyawan baru di Gedung 2 (VLAN 20) tidak dapat terhubung ke Server HR di Gedung 1, sedangkan karyawan VLAN 10 lancar.",
+    "technical_clue": "Periksa link penghubung antar Managed Switch dengan perintah 'show vlan brief'. Pastikan port inter-switch dikonfigurasi sebagai TRUNK ('switchport mode trunk').",
+    "initial_topology": {
+      "version": 3,
+      "devices": [
+        {"id": 1, "type": "managed_switch", "name": "SW_Gedung1", "x": 300, "y": 200, "rotation": 0},
+        {"id": 2, "type": "managed_switch", "name": "SW_Gedung2", "x": 550, "y": 200, "rotation": 0},
+        {"id": 3, "type": "server", "name": "HR_Server", "x": 150, "y": 200, "rotation": 0, "config": {"ports": {"GigabitEthernet0/0": ["192.168.20.10", "/24"]}}},
+        {"id": 4, "type": "pc", "name": "PC_HR_G2", "x": 700, "y": 200, "rotation": 0, "config": {"ports": {"FastEthernet0": ["192.168.20.50", "/24"]}}}
+      ],
+      "links": [
+        {"id": 1, "cable": "crossover", "a": [1, "GigabitEthernet0/12"], "b": [2, "GigabitEthernet0/12"]},
+        {"id": 2, "cable": "straight", "a": [3, "GigabitEthernet0/0"], "b": [1, "GigabitEthernet0/1"]},
+        {"id": 3, "cable": "straight", "a": [4, "FastEthernet0"], "b": [2, "FastEthernet0/1"]}
+      ]
+    },
+    "fault_type": "vlan_trunk_mismatch",
+    "criteria": {
+      "trunk_configured": true,
+      "links_active": true
+    }
+  },
+  {
+    "id": 4,
+    "ticket_no": "INC-104",
+    "client": "Tim Marketing",
+    "severity": "MEDIUM",
+    "title": "Aplikasi Web Intranet Diblokir oleh Aturan Firewall",
+    "symptom": "Server web baru intranet tidak dapat diakses (koneksi ditolak oleh Firewall), padahal ping ICMP berhasil.",
+    "technical_clue": "Buka konfigurasi Firewall. Periksa Access Control List (ACL), pastikan ada rule permit untuk protocol HTTP atau TCP port 80 sebelum implicit deny.",
+    "initial_topology": {
+      "version": 3,
+      "devices": [
+        {"id": 1, "type": "pc", "name": "PC_Marketing", "x": 150, "y": 200, "rotation": 0, "config": {"ports": {"FastEthernet0": ["192.168.1.10", "/24"]}, "gateway": "192.168.1.1"}},
+        {"id": 2, "type": "firewall", "name": "FW_Perimeter", "x": 400, "y": 200, "rotation": 0, "config": {"ports": {"GigabitEthernet0/0": ["192.168.1.1", "/24"], "GigabitEthernet0/1": ["10.0.0.1", "/24"]}}},
+        {"id": 3, "type": "server", "name": "Web_Server", "x": 650, "y": 200, "rotation": 0, "config": {"ports": {"GigabitEthernet0/0": ["10.0.0.10", "/24"]}, "gateway": "10.0.0.1"}}
+      ],
+      "links": [
+        {"id": 1, "cable": "straight", "a": [1, "FastEthernet0"], "b": [2, "GigabitEthernet0/0"]},
+        {"id": 2, "cable": "straight", "a": [3, "GigabitEthernet0/0"], "b": [2, "GigabitEthernet0/1"]}
+      ]
+    },
+    "fault_type": "acl_blocking_http",
+    "criteria": {
+      "acls_configured": 1,
+      "links_active": true
+    }
+  },
+  {
+    "id": 5,
+    "ticket_no": "INC-105",
+    "client": "Ruang Direktur",
+    "severity": "HIGH",
+    "title": "Port Security Violation Mematikan Interface Switch",
+    "symptom": "Setelah laptop baru dicolokkan ke port dinding ruang Direktur, lampu indikator switch mati (LED Merah) dan koneksi terputus total.",
+    "technical_clue": "Switchport masuk ke mode err-disabled akibat port-security violation. Buka terminal switch, lakukan 'shutdown' lalu 'no shutdown' pada interface terkait dan atur maximum MAC yang sesuai.",
+    "initial_topology": {
+      "version": 3,
+      "devices": [
+        {"id": 1, "type": "managed_switch", "name": "SW_Core", "x": 350, "y": 200, "rotation": 0},
+        {"id": 2, "type": "laptop", "name": "Laptop_Direktur", "x": 150, "y": 200, "rotation": 0, "config": {"ports": {"FastEthernet0": ["192.168.1.5", "/24"]}}},
+        {"id": 3, "type": "router", "name": "R_Gateway", "x": 580, "y": 200, "rotation": 0, "config": {"ports": {"GigabitEthernet0/0": ["192.168.1.1", "/24"]}}}
+      ],
+      "links": [
+        {"id": 1, "cable": "straight", "a": [2, "FastEthernet0"], "b": [1, "GigabitEthernet0/1"]},
+        {"id": 2, "cable": "straight", "a": [3, "GigabitEthernet0/0"], "b": [1, "GigabitEthernet0/2"]}
+      ]
+    },
+    "fault_type": "port_security_err_disable",
+    "criteria": {
+      "port_security_active": true,
+      "links_active": true
+    }
+  },
+  {
+    "id": 6,
+    "ticket_no": "INC-106",
+    "client": "Departemen Operasional",
+    "severity": "CRITICAL",
+    "title": "Resolusi Nama Domain 'portal.local' Gagal (DNS Error)",
+    "symptom": "Client bisa melakukan ping ke alamat IP 192.168.1.200, tetapi saat mengetikkan 'portal.local' muncul pesan 'Unknown host' / DNS Failure.",
+    "technical_clue": "Periksa konfigurasi DNS Server. Pastikan ada A Record untuk nama domain 'portal.local' yang mengarah ke IP 192.168.1.200 dan PC client telah diarahkan ke IP DNS Server.",
+    "initial_topology": {
+      "version": 3,
+      "devices": [
+        {"id": 1, "type": "pc", "name": "PC_Ops", "x": 150, "y": 200, "rotation": 0, "config": {"ports": {"FastEthernet0": ["192.168.1.50", "/24"]}}},
+        {"id": 2, "type": "switch", "name": "SW_LAN", "x": 380, "y": 200, "rotation": 0},
+        {"id": 3, "type": "server", "name": "DNS_Server", "x": 600, "y": 200, "rotation": 0, "config": {"ports": {"GigabitEthernet0/0": ["192.168.1.200", "/24"]}}}
+      ],
+      "links": [
+        {"id": 1, "cable": "straight", "a": [1, "FastEthernet0"], "b": [2, "FastEthernet0/1"]},
+        {"id": 2, "cable": "straight", "a": [3, "GigabitEthernet0/0"], "b": [2, "FastEthernet0/2"]}
+      ]
+    },
+    "fault_type": "dns_record_missing",
+    "criteria": {
+      "dns_records": {"portal.local": "A"},
+      "links_active": true
+    }
+  }
+]
